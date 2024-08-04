@@ -3,12 +3,12 @@
 <head>
     <title>Edit Client</title>
 </head>
-<body>
-    <h1>Edit Client</h1>
-    <form action="/edit/{{ client.id }}" method="post">
-        <input type="text" name="name" value="{{ client.name }}" required>
-        <input type="number" name="age" value="{{ client.age }}" required>
-        <input type="submit" value="Update Client">
-    </form>
-</body>
+    <body>
+        <h1>Edit Client</h1>
+        <form action="/edit/{{ client.id }}" method="post">
+            <input type="text" name="name" value="{{ client.name }}" required>
+            <input type="number" name="age" value="{{ client.age }}" required>
+            <input type="submit" value="Update Client">
+        </form>
+    </body>
 </html>
