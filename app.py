@@ -22,9 +22,9 @@ def index():
 @app.route('/add', methods=['POST'])
 def add_client():
     name = request.form['name']
-    age = request.form['age']
+    birthdate = request.form['birthdate']
     cursor = mysql.connection.cursor()
-    cursor.execute('INSERT INTO clients (name, age) VALUES (%s, %s)', (name, age))
+    cursor.execute('INSERT INTO clients (name, birthdate) VALUES (%s, %s)', (name, birthdate))
     mysql.connection.commit()
     return redirect(url_for('index'))
 
@@ -33,8 +33,8 @@ def edit_client(id):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     if request.method == 'POST':
         name = request.form['name']
-        age = request.form['age']
-        cursor.execute('UPDATE clients SET name=%s, age=%s WHERE id=%s', (name, age, id))
+        birthdate = request.form['birthdate']
+        cursor.execute('UPDATE clients SET name=%s, birthdate=%s WHERE id=%s', (name, birthdate, id))
         mysql.connection.commit()
         return redirect(url_for('index'))
     cursor.execute('SELECT * FROM clients WHERE id = %s', (id,))

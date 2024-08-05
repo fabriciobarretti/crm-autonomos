@@ -6,8 +6,25 @@
 <body>
     <h1>Clients</h1>
     <form action="/add" method="post">
-        <input type="text" name="name" placeholder="Name" required>
-        <input type="number" name="age" placeholder="Age" required>
+        <input type="text" name="name" placeholder="Name" required><br>
+        <input type="date" name="birthdate" placeholder="Birthdate" max="2006-01-01" required><br>
+
+        <label for="dayofthesession">Day of the session: </label>
+            <select id="dayofthesession" name="dayofthesession">
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+            </select><br>
+
+        <label for="sessiontime">Session time: </label>
+        <input id="sessiontime" type="time" name="sessiontime"/><br>
+
+        <input type="number" name="packageprice" placeholder="Package Price" required min="1"><br>
+        <input type="number" name="payday" placeholder="Payment day" required min="1" max="31"><br>
+
         <input type="submit" value="Add Client">
     </form>
     <ul>
