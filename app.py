@@ -23,9 +23,15 @@ def index():
 def add_client():
     name = request.form['name']
     birthdate = request.form['birthdate']
+    dayOfTheSession = request.form['dayofthesession']
+    sessionTime = request.form['sessiontime']
+    packagePrice = request.form['packageprice']
+    payDay = request.form['payday']
+
     cursor = mysql.connection.cursor()
-    cursor.execute('INSERT INTO clients (name, birthdate) VALUES (%s, %s)', (name, birthdate))
+    cursor.execute('INSERT INTO clients (name, birthdate, dayofthesession, sessiontime, packageprice, payday) VALUES (%s, %s, %s, %s, %s, %s)', (name, birthdate, dayOfTheSession, sessionTime, packagePrice, payDay))
     mysql.connection.commit()
+
     return redirect(url_for('index'))
 
 @app.route('/edit/<int:id>', methods=['GET', 'POST'])
@@ -34,9 +40,15 @@ def edit_client(id):
     if request.method == 'POST':
         name = request.form['name']
         birthdate = request.form['birthdate']
-        cursor.execute('UPDATE clients SET name=%s, birthdate=%s WHERE id=%s', (name, birthdate, id))
+        dayOfTheSession = request.form['dayofthesession']
+        sessionTime = request.form['sessiontime']
+        packagePrice = request.form['packageprice']
+        payDay = request.form['payday']
+
+        cursor.execute('UPDATE clients SET name=%s, birthdate=%s, dayofthesession=%s, sessiontime=%s, packageprice=%s, payday=%s WHERE id=%s', (name, birthdate, dayOfTheSession, sessionTime, packagePrice, payDay, id))
         mysql.connection.commit()
         return redirect(url_for('index'))
+    
     cursor.execute('SELECT * FROM clients WHERE id = %s', (id,))
     client = cursor.fetchone()
     return render_template('edit.html', client=client)

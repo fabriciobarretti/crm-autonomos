@@ -6,9 +6,34 @@
     <body>
         <h1>Edit Client</h1>
         <form action="/edit/{{ client.id }}" method="post">
-            <input type="text" name="name" value="{{ client.name }}" required>
-            <input type="number" name="age" value="{{ client.age }}" required>
+            <label for="name">Name: </label>
+            <input type="text" name="name" value="{{ client.name }}" required><br>
+
+            <label for="birthdate">Birthdate: </label>
+            <input type="date" name="birthdate" value="{{ client.birthdate }}" max="2006-01-01" required><br>
+
+            <label for="dayofthesession">Day of the session: </label>
+                <select id="dayofthesession" name="dayofthesession" value="{{ client.dayofthesession }}" required>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+                </select><br>
+
+            <label for="sessiontime">Session time: </label>
+            <input id="sessiontime" type="time" name="sessiontime" value="{{ client.sessiontime }}" required/><br>
+            
+            <label for="packageprice">Package price: </label>
+            <input type="number" name="packageprice" min="1" max="999" value="{{ client.packageprice }}" required><br>
+
+            <label for="payday">Payment date: </label>
+            <input type="number" name="payday" min="1" max="31" value="{{ client.payday }}" required><br>
+
             <input type="submit" value="Update Client">
         </form>
+        
+        <button onclick="window.location.href='/';">Go back</button>
     </body>
 </html>
