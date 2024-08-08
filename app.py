@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_mysqldb import MySQL
+from datetime import date
 import MySQLdb.cursors
 
 app = Flask(__name__)
@@ -12,19 +13,24 @@ app.config['MYSQL_DB'] = 'clients_db'
 
 mysql = MySQL(app)
 
-def get_day_of_the_session(id):
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute("SELECT dayofthesession FROM clients WHERE id = {{ id }}")
-    client = cursor.fetchone()
-    print(client)
-    return client.dayofthesession if client else None
+def get_next_sessions(clients):
+    currentDay = date.today()
+    nextSessions = []
 
+    for i, client in enumerate(clients):
+        nextSessions[i] = client.dayofthesession
+        # PAREI AQUI
+
+    print(nextSessions)
+    return clients if clients else None
 
 @app.route('/')
 def index():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT * FROM clients')
     clients = cursor.fetchall()
+    # get_next_sessions(clients)
+    print(type(clients))
     return render_template('index.html', clients=clients)
 
 @app.route('/add', methods=['POST'])
@@ -60,7 +66,8 @@ def edit_client(id):
     cursor.execute('SELECT * FROM clients WHERE id = %s', (id,))
     client = cursor.fetchone()
     print(client)
-    return render_template('edit.html', client=client)
+    daysOfTheWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    return render_template('edit.html', client=client, daysOfTheWeek=daysOfTheWeek)
 
 @app.route('/delete/<int:id>')
 def delete_client(id):
