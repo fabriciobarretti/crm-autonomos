@@ -12,6 +12,14 @@ app.config['MYSQL_DB'] = 'clients_db'
 
 mysql = MySQL(app)
 
+def get_day_of_the_session(id):
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute("SELECT dayofthesession FROM clients WHERE id = {{ id }}")
+    client = cursor.fetchone()
+    print(client)
+    return client.dayofthesession if client else None
+
+
 @app.route('/')
 def index():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -51,6 +59,7 @@ def edit_client(id):
     
     cursor.execute('SELECT * FROM clients WHERE id = %s', (id,))
     client = cursor.fetchone()
+    print(client)
     return render_template('edit.html', client=client)
 
 @app.route('/delete/<int:id>')
