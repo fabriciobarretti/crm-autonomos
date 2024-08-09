@@ -18,9 +18,8 @@ def get_next_sessions(clients):
     nextSessions = []
 
     for i, client in enumerate(clients):
-        nextSessions[i] = client.dayofthesession
-        # PAREI AQUI
-
+        nextSessions.append({'id': client['id'], 'name': client['name'], 'dayofthesession': client['dayofthesession']})
+                        
     print(nextSessions)
     return clients if clients else None
 
@@ -29,8 +28,8 @@ def index():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT * FROM clients')
     clients = cursor.fetchall()
-    # get_next_sessions(clients)
     print(type(clients))
+    get_next_sessions(clients)
     return render_template('index.html', clients=clients)
 
 @app.route('/add', methods=['POST'])
