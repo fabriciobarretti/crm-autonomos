@@ -13,24 +13,35 @@ app.config['MYSQL_DB'] = 'clients_db'
 
 mysql = MySQL(app)
 
+daysOfTheWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+
 def get_next_sessions(clients):
-    currentDay = date.today()
+    currentDate = date.today()
     nextSessions = []
 
+    # Busca todos os clientes e coloca algumas informações na variável nextSessions
     for i, client in enumerate(clients):
-        nextSessions.append({'id': client['id'], 'name': client['name'], 'dayofthesession': client['dayofthesession']})
-                        
-    print(nextSessions)
-    return clients if clients else None
+        if client['dayofthesession'] in daysOfTheWeek:
+            #Transforma o nome do dia em número da semana
+            dayOfTheSession = daysOfTheWeek.index(client['dayofthesession'])
+            nextSessions.append({'id': client['id'], 'name': client['name'], 'dayofthesession': dayOfTheSession, 'sessiontime': client['sessiontime']})
+        else:
+            print("Invalid date.")
+    
+    # Ordena primeiramente por dia da sessão e, depois, por horário da sessão
+    nextSessions.sort(key=lambda x: (x['dayofthesession'], x['sessiontime']))
+    
+    # print(nextSessions)
+    # print(daysOfTheWeek[currentDate.weekday()])
+    return nextSessions if nextSessions else None
 
 @app.route('/')
 def index():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT * FROM clients')
     clients = cursor.fetchall()
-    print(type(clients))
-    get_next_sessions(clients)
-    return render_template('index.html', clients=clients)
+    nextSessions = get_next_sessions(clients)
+    return render_template('index.html', clients=clients, nextSessions=nextSessions, daysOfTheWeek=daysOfTheWeek)
 
 @app.route('/add', methods=['POST'])
 def add_client():
@@ -65,7 +76,7 @@ def edit_client(id):
     cursor.execute('SELECT * FROM clients WHERE id = %s', (id,))
     client = cursor.fetchone()
     print(client)
-    daysOfTheWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    
     return render_template('edit.html', client=client, daysOfTheWeek=daysOfTheWeek)
 
 @app.route('/delete/<int:id>')

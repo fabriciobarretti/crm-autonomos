@@ -35,13 +35,23 @@
         <input type="submit" value="Add Client">
     </form>
     <ul>
+        <p>Clients: </p>
         {% for client in clients %}
         <li>
-            {{ client.name }} ({{ client.age }})
+            {{ client.name }}
             <a href="/edit/{{ client.id }}">Edit</a>
             <a href="/delete/{{ client.id }}">Delete</a>
         </li>
         {% endfor %}
     </ul>
+    <ul>
+        <p>Next sessions: </p>
+        {%for session in nextSessions%}
+        <li>
+            {{ session.name }} {{ daysOfTheWeek[session.dayofthesession] }} {{ session.sessiontime }}
+        </li>
+        {% endfor %}
+    </ul>
+
 </body>
 </html>
