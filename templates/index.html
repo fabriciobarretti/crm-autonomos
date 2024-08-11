@@ -21,6 +21,7 @@
             <option value="Thursday">Thursday</option>
             <option value="Friday">Friday</option>
             <option value="Saturday">Saturday</option>
+            <option value="Sunday">Sunday</option>
             </select><br>
 
         <label for="sessiontime">Session time: </label>
@@ -47,6 +48,7 @@
     <ul>
         <p>Next sessions: </p>
         {%for session in nextSessions%}
+   
         <li>
             {{ session.name }} {{ daysOfTheWeek[session.dayofthesession] }} {{ session.sessiontime }}
         </li>

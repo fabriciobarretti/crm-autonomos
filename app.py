@@ -17,6 +17,7 @@ daysOfTheWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturd
 
 def get_next_sessions(clients):
     currentDate = date.today()
+    currentDateIndex = currentDate.weekday()
     nextSessions = []
 
     # Busca todos os clientes e coloca algumas informações na variável nextSessions
@@ -24,12 +25,14 @@ def get_next_sessions(clients):
         if client['dayofthesession'] in daysOfTheWeek:
             #Transforma o nome do dia em número da semana
             dayOfTheSession = daysOfTheWeek.index(client['dayofthesession'])
-            nextSessions.append({'id': client['id'], 'name': client['name'], 'dayofthesession': dayOfTheSession, 'sessiontime': client['sessiontime']})
+            adjustedDay = (dayOfTheSession - currentDateIndex) % 7 #
+
+            nextSessions.append({'id': client['id'], 'name': client['name'], 'adjustedDay': adjustedDay, 'dayofthesession': dayOfTheSession, 'sessiontime': client['sessiontime']})
         else:
             print("Invalid date.")
     
     # Ordena primeiramente por dia da sessão e, depois, por horário da sessão
-    nextSessions.sort(key=lambda x: (x['dayofthesession'], x['sessiontime']))
+    nextSessions.sort(key=lambda x: (x['adjustedDay'], x['sessiontime']))
     
     # print(nextSessions)
     # print(daysOfTheWeek[currentDate.weekday()])
@@ -41,6 +44,8 @@ def index():
     cursor.execute('SELECT * FROM clients')
     clients = cursor.fetchall()
     nextSessions = get_next_sessions(clients)
+    print(type(nextSessions))
+    print(type(clients))
     return render_template('index.html', clients=clients, nextSessions=nextSessions, daysOfTheWeek=daysOfTheWeek)
 
 @app.route('/add', methods=['POST'])
