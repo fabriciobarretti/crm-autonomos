@@ -25,7 +25,7 @@ def get_next_sessions(clients):
         if client['dayofthesession'] in daysOfTheWeek:
             #Transforma o nome do dia em número da semana
             dayOfTheSession = daysOfTheWeek.index(client['dayofthesession'])
-            adjustedDay = (dayOfTheSession - currentDateIndex) % 7 #
+            adjustedDay = (dayOfTheSession - currentDateIndex) % 7
 
             nextSessions.append({'id': client['id'], 'name': client['name'], 'adjustedDay': adjustedDay, 'dayofthesession': dayOfTheSession, 'sessiontime': client['sessiontime']})
         else:
@@ -34,9 +34,22 @@ def get_next_sessions(clients):
     # Ordena primeiramente por dia da sessão e, depois, por horário da sessão
     nextSessions.sort(key=lambda x: (x['adjustedDay'], x['sessiontime']))
     
-    # print(nextSessions)
-    # print(daysOfTheWeek[currentDate.weekday()])
     return nextSessions if nextSessions else None
+
+def get_next_payments(clients):
+    currentDate = date.today()
+    currentDayOfTheMonth = currentDate.day
+    nextPayments = []
+
+    for i, client in enumerate(clients):
+        adjustedPayday = (client['payday'] - currentDayOfTheMonth) % 31
+
+        nextPayments.append({'id': client['id'], 'name': client['name'], 'adjustedPayday': adjustedPayday, 'payday': client['payday'], 'packagePrice': client['packageprice']})
+
+    nextPayments.sort(key=lambda x: (x['adjustedPayday'], x['packagePrice'], x['name']))
+
+    return nextPayments if nextPayments else None
+        
 
 @app.route('/')
 def index():
@@ -44,9 +57,9 @@ def index():
     cursor.execute('SELECT * FROM clients')
     clients = cursor.fetchall()
     nextSessions = get_next_sessions(clients)
-    print(type(nextSessions))
-    print(type(clients))
-    return render_template('index.html', clients=clients, nextSessions=nextSessions, daysOfTheWeek=daysOfTheWeek)
+    nextPayments = get_next_payments(clients)
+    
+    return render_template('index.html', clients=clients, nextSessions=nextSessions, nextPayments = nextPayments, daysOfTheWeek=daysOfTheWeek)
 
 @app.route('/add', methods=['POST'])
 def add_client():

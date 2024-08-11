@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Client Management</title>
+    <link href="index.css" rel="stylesheet">
 </head>
 <body>
     <h1>Clients</h1>
@@ -51,6 +52,15 @@
    
         <li>
             {{ session.name }} {{ daysOfTheWeek[session.dayofthesession] }} {{ session.sessiontime }}
+        </li>
+        {% endfor %}
+    </ul>
+    <ul>
+        <p>Next payments: </p>
+        {%for client in nextPayments%}
+   
+        <li>
+            {{ client.payday }} {{ client.name }} R$ {{ client.packagePrice }}
         </li>
         {% endfor %}
     </ul>
