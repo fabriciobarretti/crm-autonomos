@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_mysqldb import MySQL
 from datetime import date
+from datetime import datetime
 import MySQLdb.cursors
 
 app = Flask(__name__)
@@ -15,9 +16,13 @@ mysql = MySQL(app)
 
 daysOfTheWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
+def parse_time(time_string):
+    return datetime.strptime(time_string, "%H:%M").time()
+
 def get_next_sessions(clients):
     currentDate = date.today()
     currentDateIndex = currentDate.weekday()
+    currentTime = datetime.now().time()
     nextSessions = []
 
     # Busca todos os clientes e coloca algumas informações na variável nextSessions
@@ -26,13 +31,18 @@ def get_next_sessions(clients):
             #Transforma o nome do dia em número da semana
             dayOfTheSession = daysOfTheWeek.index(client['dayofthesession'])
             adjustedDay = (dayOfTheSession - currentDateIndex) % 7
+            sessionTime = parse_time(client['sessiontime'])
 
-            nextSessions.append({'id': client['id'], 'name': client['name'], 'adjustedDay': adjustedDay, 'dayofthesession': dayOfTheSession, 'sessiontime': client['sessiontime']})
+            sessionHasPassed = (adjustedDay == 0 and sessionTime < currentTime)
+            sortKey = (sessionHasPassed, adjustedDay, sessionTime)
+    
+
+            nextSessions.append({'id': client['id'], 'name': client['name'], 'adjustedDay': adjustedDay, 'dayofthesession': dayOfTheSession, 'sessiontime': sessionTime, 'sortKey': sortKey})
         else:
             print("Invalid date.")
     
     # Ordena primeiramente por dia da sessão e, depois, por horário da sessão
-    nextSessions.sort(key=lambda x: (x['adjustedDay'], x['sessiontime']))
+    nextSessions.sort(key=lambda x: (x['sortKey']))
     
     return nextSessions if nextSessions else None
 

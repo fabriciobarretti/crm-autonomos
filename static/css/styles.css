@@ -13,6 +13,23 @@ body {
     justify-content: center;
     gap: 20px;
 }
+.container p {
+    font-size: 20px;
+    margin-bottom: 20px; /* Space between paragraph and cards */
+}
+.container .card {
+    display: block; /* Divs are block elements by default, but this reinforces it */
+    margin-bottom: 10px; /* Space between each card */
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 200px;
+    text-align: center;
+    margin-left: auto; /* Center cards horizontally */
+    margin-right: auto; /* Center cards horizontally */
+}
+
 .card {
     background-color: white;
     border-radius: 10px;
@@ -32,6 +49,6 @@ body {
 }
 .card p {
     margin: 10px 0 0;
-    font-size: 18px;
+    font-size: 20px;
     color: #777;
 }
