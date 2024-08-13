@@ -71,6 +71,13 @@ def index():
     
     return render_template('index.html', clients=clients, nextSessions=nextSessions, nextPayments = nextPayments, daysOfTheWeek=daysOfTheWeek)
 
+@app.route('/clients')
+def clients():
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM clients')
+    clients = cursor.fetchall()    
+    return render_template('clients.html', clients=clients)
+
 @app.route('/add', methods=['POST'])
 def add_client():
     name = request.form['name']
