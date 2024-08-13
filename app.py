@@ -68,7 +68,6 @@ def index():
     clients = cursor.fetchall()
     nextSessions = get_next_sessions(clients)
     nextPayments = get_next_payments(clients)
-    
     return render_template('index.html', clients=clients, nextSessions=nextSessions, nextPayments = nextPayments, daysOfTheWeek=daysOfTheWeek)
 
 @app.route('/clients')
@@ -91,7 +90,7 @@ def add_client():
     cursor.execute('INSERT INTO clients (name, birthdate, dayofthesession, sessiontime, packageprice, payday) VALUES (%s, %s, %s, %s, %s, %s)', (name, birthdate, dayOfTheSession, sessionTime, packagePrice, payDay))
     mysql.connection.commit()
 
-    return redirect(url_for('index'))
+    return redirect(url_for('clients'))
 
 @app.route('/edit/<int:id>', methods=['GET', 'POST'])
 def edit_client(id):
