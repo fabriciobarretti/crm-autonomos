@@ -3,7 +3,7 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    margin: 20px;
+    margin: 10px;
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
     flex-direction: column;
@@ -28,7 +28,17 @@ body {
     width: 200px;
     text-align: center;
     margin-left: auto; /* Center cards horizontally */
-    margin-right: auto; /* Center cards horizontally */
+    margin-right: auto; 
+    /* Center cards horizontally */
+}
+
+.form-input {
+    background-color: white;
+    border-radius: 10px;
+    margin: 5px 0;
+    border: none;
+    height: 30px;
+    padding: 5px;
 }
 
 .card {
@@ -36,7 +46,7 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    width: 200px;
+    width: 100px;
     text-align: center;
     transition: transform 0.3s;
 }
@@ -73,8 +83,14 @@ input[type=button], input[type=submit], input[type=reset] {
     border: none;
     color: white;
     padding: 16px 32px;
+    font-size: 16px;
     text-decoration: none;
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 10px;
+}
+
+.container-submit {
+    text-align: center; /* Center the button container */
+    margin: 10px 0;
 }
