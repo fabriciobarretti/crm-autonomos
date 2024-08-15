@@ -2,8 +2,12 @@
 <html>
 <head>
     <title>Edit Client</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
     <body>
+    <h1>Clients</h1>
+    
+    <div class="container">
     <form action="/add" method="post">
         <label for="name">Name: </label>
         <input type="text" name="name" placeholder="Name" required><br>
@@ -34,18 +38,22 @@
 
         <input type="submit" value="Add Client">
     </form>
-
-    <h1>Clients</h1>
-        <div class="container">
-            {% for client in clients %}
-            <div class="card">
-                {{ client.name }}
-                <a href="/edit/{{ client.id }}">Edit</a>
-                <!-- <a href="/delete/{{ client.id }}">Delete</a> -->
-            </div>
-            {% endfor %}
+    </div>
+    
+    <br>
+    <br>
+    
+    <div class="container">
+        {% for client in clients %}
+        <!-- <button onclick="window.location.href='/edit/{{ client.id }}';">{{ client.name }}</button> -->
+        <div class="card">            
+            <a href="/edit/{{ client.id }}">{{ client.name }}
+            </a>
+            <!-- <a href="/delete/{{ client.id }}">Delete</a> -->
+        </div>
+        {% endfor %}
     </div>
         
-        <button onclick="window.location.href='/';">Go back</button>
+    <button onclick="window.location.href='/';">Go back</button>
     </body>
 </html>

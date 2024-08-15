@@ -1,11 +1,12 @@
 body {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     height: 100vh;
-    margin: 0;
+    margin: 20px;
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
+    flex-direction: column;
 }
 .container {
     display: flex;
@@ -17,7 +18,7 @@ body {
     font-size: 20px;
     margin-bottom: 20px; /* Space between paragraph and cards */
 }
-.container .card {
+.container .button {
     display: block; /* Divs are block elements by default, but this reinforces it */
     margin-bottom: 10px; /* Space between each card */
     background-color: white;
@@ -51,4 +52,29 @@ body {
     margin: 10px 0 0;
     font-size: 20px;
     color: #777;
+}
+
+button {
+    background-color: #04AA6D; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor:pointer;
+    margin-top: 20px;
+}
+
+input[type=button], input[type=submit], input[type=reset] {
+    background-color: #04AA6D;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 10px;
 }
