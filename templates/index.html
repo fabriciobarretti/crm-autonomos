@@ -2,32 +2,46 @@
 <html>
 <head>
     <title>Client Management</title>
-    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}"> -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
 </head>
 <body>
-    <button onclick="window.location.href='/clients';">Clients</button>
+    <h1>Client Management</h1>
 
-    <div class="container">
-            <p>Next sessions: </p>
+    <div class="outer-container">
+        <p>Next <b>Sessions</b></p>
+        <div class="container">
+
             {%for session in nextSessions%}
-       
-            <div class="card">
-                {{ session.name }}
-                {{ daysOfTheWeek[session.dayofthesession] }}
-                {{ session.sessiontime }}
-            </div>
+            
+            <a href="/edit/{{ session.id }}" class="card">
+                <div>
+                    <h2>{{ session.name }}</h2><br>
+                    {{ daysOfTheWeek[session.dayofthesession] }}<br>
+                    {{ session.sessiontime }}
+                </div>
+            </a>
             {% endfor %}
+        </div>
+        
+        <p>Next <b>Payments</b></p>
+        <div class="container">
+            {%for client in nextPayments%}
+    
+            <a href="/edit/{{ client.id }}" class="card">
+                <div>
+                    <h2>{{ client.name }}</h2><br>
+                    Date: {{ client.payday }}<br>
+                    R$ {{ client.packagePrice }}
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        
     </div>
     
-    <div class="container">
-        <p>Next payments: </p>
-        
-        {%for client in nextPayments%}
-   
-        <div class="card">
-            {{ client.payday }} {{ client.name }} R$ {{ client.packagePrice }}
-        </div>
-        {% endfor %}
+    <div class="header-button-container">
+        <button class="header-button" onclick="window.location.href='/add';"><b>Add</b> Clients</button> 
+        <button class="header-button" onclick="window.location.href='/clients';"><b>Show</b> Clients</button>
     </div>
 
 </body>

@@ -2,17 +2,23 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    /* height: 100vh; */
     margin: 10px;
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
     flex-direction: column;
 }
+
+.outer-container {
+    display: flex;
+}
+
 .container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
+    width: 60%;
 }
 .container p {
     font-size: 20px;
@@ -46,9 +52,12 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    width: 100px;
+    min-width: 100px;
     text-align: center;
     transition: transform 0.3s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
 }
 .card:hover {
     transform: scale(1.05);

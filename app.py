@@ -32,6 +32,7 @@ def get_next_sessions(clients):
             dayOfTheSession = daysOfTheWeek.index(client['dayofthesession'])
             adjustedDay = (dayOfTheSession - currentDateIndex) % 7
             sessionTime = parse_time(client['sessiontime'])
+            print(sessionTime)
 
             sessionHasPassed = (adjustedDay == 0 and sessionTime < currentTime)
             sortKey = (sessionHasPassed, adjustedDay, sessionTime)
@@ -77,20 +78,22 @@ def clients():
     clients = cursor.fetchall()    
     return render_template('clients.html', clients=clients)
 
-@app.route('/add', methods=['POST'])
+@app.route('/add', methods=['GET', 'POST'])
 def add_client():
-    name = request.form['name']
-    birthdate = request.form['birthdate']
-    dayOfTheSession = request.form['dayofthesession']
-    sessionTime = request.form['sessiontime']
-    packagePrice = request.form['packageprice']
-    payDay = request.form['payday']
+    if request.method == 'POST':
+        name = request.form['name']
+        birthdate = request.form['birthdate']
+        dayOfTheSession = request.form['dayofthesession']
+        sessionTime = request.form['sessiontime']
+        packagePrice = request.form['packageprice']
+        payDay = request.form['payday']
 
-    cursor = mysql.connection.cursor()
-    cursor.execute('INSERT INTO clients (name, birthdate, dayofthesession, sessiontime, packageprice, payday) VALUES (%s, %s, %s, %s, %s, %s)', (name, birthdate, dayOfTheSession, sessionTime, packagePrice, payDay))
-    mysql.connection.commit()
+        cursor = mysql.connection.cursor()
+        cursor.execute('INSERT INTO clients (name, birthdate, dayofthesession, sessiontime, packageprice, payday) VALUES (%s, %s, %s, %s, %s, %s)', (name, birthdate, dayOfTheSession, sessionTime, packagePrice, payDay))
+        mysql.connection.commit()
+        return redirect(url_for('clients'))
 
-    return redirect(url_for('clients'))
+    return render_template('addclient.html')
 
 @app.route('/edit/<int:id>', methods=['GET', 'POST'])
 def edit_client(id):

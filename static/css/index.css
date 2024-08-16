@@ -1,0 +1,123 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* height: 100vh; */
+    margin: 10px;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    flex-direction: column;
+}
+
+.outer-container {
+    display: inline-block;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+}
+
+.header-button-container {
+    display: flex;
+    justify-content: center;
+    margin: 15px;
+}
+
+.header-button {
+    margin: 10px;
+}
+
+.container {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: left;
+    overflow-x: auto;
+    align-items: start;
+    gap: 20px;
+}
+.outer-container p {
+    font-size: 20px;
+    text-align: left;
+    margin-bottom: 20px; /* Space between paragraph and cards */
+}
+.container .button {
+    display: block; /* Divs are block elements by default, but this reinforces it */
+    margin-bottom: 10px; /* Space between each card */
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 200px;
+    text-align: center;
+    margin-left: auto; /* Center cards horizontally */
+    margin-right: auto; 
+    /* Center cards horizontally */
+}
+
+.form-input {
+    background-color: white;
+    border-radius: 10px;
+    margin: 5px 0;
+    border: none;
+    height: 30px;
+    padding: 5px;
+}
+
+.card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    min-width: 100px;
+    text-align: center;
+    transition: transform 0.3s;
+    margin: 10px;
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+.card h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+}
+.card p {
+    margin: 10px 0 0;
+    font-size: 20px;
+    color: #777;
+}
+
+button {
+    background-color: #04AA6D; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor:pointer;
+    margin-top: 20px;
+}
+
+input[type=button], input[type=submit], input[type=reset] {
+    background-color: #04AA6D;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    font-size: 16px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.container-submit {
+    text-align: center; /* Center the button container */
+    margin: 10px 0;
+}

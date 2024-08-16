@@ -2,36 +2,42 @@
 <html>
 <head>
     <title>Edit Client</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/clients.css') }}">
 </head>
     <body>
         <h1>Edit Client</h1>
-        <form action="/edit/{{ client.id }}" method="post">
-            <label for="name">Name: </label>
-            <input type="text" name="name" value="{{ client.name }}" required><br>
 
-            <label for="birthdate">Birthdate: </label>
-            <input type="date" name="birthdate" value="{{ client.birthdate }}" max="2006-01-01" required><br>
+        <div class="container">
+            <form action="/edit/{{ client.id }}" method="post">
+                <label for="name">Name: </label>
+                <input type="text" class="form-input" name="name" value="{{ client.name }}" required><br>
 
-            <label for="dayofthesession">Day of the session: </label>
-                <select id="dayofthesession" name="dayofthesession" required>
-                {% for day in daysOfTheWeek %}
-                    <option value="{{ day }}" {% if day == client.dayofthesession %}selected{% endif %}>{{ day }}
-                    </option>
-                {% endfor %}
-                </select><br>
+                <label for="birthdate">Birthdate: </label>
+                <input type="date" class="form-input" name="birthdate" value="{{ client.birthdate }}" max="2006-01-01" required><br>
 
-            <label for="sessiontime">Session time: </label>
-            <input id="sessiontime" type="time" name="sessiontime" value="{{ client.sessiontime }}" required/><br>
-            
-            <label for="packageprice">Package price: </label>
-            <input type="number" name="packageprice" min="1" max="999" value="{{ client.packageprice }}" required><br>
+                <label for="dayofthesession">Day of the session: </label>
+                    <select id="dayofthesession" name="dayofthesession" required>
+                    {% for day in daysOfTheWeek %}
+                        <option value="{{ day }}" {% if day == client.dayofthesession %}selected{% endif %}>{{ day }}
+                        </option>
+                    {% endfor %}
+                    </select><br>
 
-            <label for="payday">Payment date: </label>
-            <input type="number" name="payday" min="1" max="31" value="{{ client.payday }}" required><br>
+                <label for="sessiontime">Session time: </label>
+                <input id="sessiontime" class="form-input" type="time" name="sessiontime" value="{{ client.sessiontime }}" required/><br>
+                
+                <label for="packageprice">Package price: </label>
+                <input type="number" class="form-input" name="packageprice" min="1" max="999" value="{{ client.packageprice }}" required><br>
 
-            <input type="submit" value="Update Client">
-        </form>
+                <label for="payday">Payment date: </label>
+                <input type="number" class="form-input" name="payday" min="1" max="31" value="{{ client.payday }}" required><br>
+
+                <div class="container-submit">
+                    <input type="submit" value="Update Client">
+                </div>
+            </form>
+        </div>
         
-        <button onclick="window.location.href='/';">Go back</button>
+        <button onclick="window.location.href='/';">Go <b>back</b></button>
     </body>
 </html>
